@@ -12,34 +12,51 @@ CREATE TABLE IF NOT EXISTS decks(
   deck_name VARCHAR(255),
   commander VARCHAR(255),
   partner VARCHAR(255),
-  teammate_id INTEGER,
   theme VARCHAR(1000),
-  tickets INTEGER NOT NULL DEFAULT 1,
-  points INTEGER NOT NULL DEFAULT 0,
-  tickets_32 INTEGER NOT NULL DEFAULT 1,
-  points_32 INTEGER NOT NULL DEFAULT 0,
-  tickets_64 INTEGER NOT NULL DEFAULT 1,
-  points_64 INTEGER NOT NULL DEFAULT 0,
-  selected BOOLEAN NOT NULL DEFAULT FALSE,
+  description VARCHAR(1000),
+  constructed BOOLEAN,
+  flagged BOOLEAN,
+  feedback VARCHAR(1000),
+  teammate_id INTEGER,
+  tickets INTEGER,
+  points_x DECIMAL,
+  tournaments INTEGER,
+  point_per_tournament DECIMAL,
+  tickets_16 INTEGER,
+  points_16 DECIMAL,
+  tournaments_16 INTEGER,
+  points_per_tournament_16 DECIMAL,
+  tickets_32 INTEGER,
+  points_32 DECIMAL,
+  tournaments_32 INTEGER,
+  points_per_tournament_32 DECIMAL,
+  tickets_64 INTEGER,
+  points_64 DECIMAL,
+  tournaments_64 INTEGER,
+  points_per_tournament_64 DECIMAL,
+  selected BOOLEAN,
   PRIMARY KEY(deck_id),
   FOREIGN KEY(teammate_id)
     REFERENCES decks(deck_id)
 );
-/*
+
 CREATE TABLE IF NOT EXISTS tournaments(
   tournament_id SERIAL PRIMARY KEY,
   name VARCHAR(255) NOT NULL,
   created_at TIMESTAMP NOT NULL DEFAULT NOW(),
   updated_at TIMESTAMP NOT NULL DEFAULT NOW(),
   game_type VARCHAR(255),
-  max_participants INTEGER,
+  participant_count INTEGER,
+  participant_ids INTEGER[],
   participants_per_match INTEGER,
   format VARCHAR(255),
   elimination_type VARCHAR(255),
   start_time TIMESTAMP,
-  seeded BOOLEAN
+  seeded BOOLEAN,
+  seed_order INTEGER[]
 );
 
+/*
 CREATE TABLE IF NOT EXISTS matches(
   match_id SERial PRIMARY KEY,
   tournament_id INTEGER REFERENCES tournaments(tournament_id),
