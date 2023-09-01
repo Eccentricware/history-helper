@@ -6,4 +6,10 @@ export class PrismaticService {
 
     return allDecks;
   }
+
+  async getDecksForTournament(deckCount: number): Promise<any> {
+    const decks = await db.pristmaticRepo.getContructedDecks();
+
+    return decks;
+  }
 }

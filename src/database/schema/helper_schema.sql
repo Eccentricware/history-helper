@@ -1,4 +1,5 @@
 --sudo -u postgres psql < database/schema/helper_schema.sql
+--sudo -u postgres psql < src/database/schema/helper_schema.sql
 
 DROP DATABASE IF EXISTS helper_dev;
 CREATE DATABASE helper_dev;
@@ -18,20 +19,20 @@ CREATE TABLE IF NOT EXISTS decks(
   flagged BOOLEAN,
   feedback VARCHAR(1000),
   teammate_id INTEGER,
-  tickets INTEGER,
-  points_x DECIMAL,
+  tickets INTEGER DEFAULT 1,
+  points INTEGER,
   tournaments INTEGER,
-  point_per_tournament DECIMAL,
-  tickets_16 INTEGER,
-  points_16 DECIMAL,
+  points_per_tournament DECIMAL,
+  tickets_16 INTEGER DEFAULT 1,
+  points_16 INTEGER,
   tournaments_16 INTEGER,
   points_per_tournament_16 DECIMAL,
-  tickets_32 INTEGER,
-  points_32 DECIMAL,
+  tickets_32 INTEGER DEFAULT 1,
+  points_32 INTEGER,
   tournaments_32 INTEGER,
   points_per_tournament_32 DECIMAL,
-  tickets_64 INTEGER,
-  points_64 DECIMAL,
+  tickets_64 INTEGER DEFAULT 1,
+  points_64 INTEGER,
   tournaments_64 INTEGER,
   points_per_tournament_64 DECIMAL,
   selected BOOLEAN,

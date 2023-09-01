@@ -11,5 +11,16 @@ prismaticRouter.get('/decks', (request, response) => {
     })
     .catch((error: Error) => {
       response.send({error: error.message});
+    });
+});
+
+prismaticRouter.get('/decks/:deckCount', (request, response) => {
+  const deckCount = Number(request.params.deckCount);
+  prismaticService.getDecksForTournament(deckCount)
+    .then((deckResults: any) => {
+      response.send({decks: deckResults });
     })
+    .catch((error: Error) => {
+      response.send({error: error.message});
+    });
 });
