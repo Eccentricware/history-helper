@@ -54,7 +54,7 @@ VALUES
   ('BG', 'Skullbriar', 'Skullbriar', 'Counter Voltron', true, true, 'Agatha Soul Cauldron?'),
   ('BG', 'Golgari', null, null, false, false, null),
   ('RG', 'The One Hit Wonder Wurm', 'Thromok', 'Devour Monster/Tokens', true, false, null),
-  ('RG', 'Gruul', null, null, false, false, null),
+  ('RG', 'Messing Up Everything', 'Agatha', 'Discounted abilities', false, true, null),
   ('W', 'Legendary Creature', 'Giada', 'Angel Tribal', true, false, null),
   ('W', 'White', null, null, false, false, null),
   ('U', 'Witness Oblivion', 'Atemsis', 'CMC Diversity', true, false, null),
