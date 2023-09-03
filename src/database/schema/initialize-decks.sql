@@ -6,7 +6,7 @@ VALUES
   ('WUBRG', 'Sliver Cascade', 'The First Sliver',  'Sliver Tribal', true, false, null),
   ('WUBRG', 'EverQuest', 'Kenrith', 'Experience/Counters/Poison', true, false, null),
   ('WUBR', 'Ambient Artifact Assault', 'Akiri and Silas', 'Artifact Resonance', true, false, null),
-  ('WUBR', 'Fire Riders', 'Cecily and Sophina', 'Non-permanents', false, true, null),
+  ('WUBR', 'Spellslingers', 'Cecily and Sophina', 'Non-permanents', false, true, null),
   ('GWUB', 'Super Friends', 'Atraxa, Praetors Voice', 'Planeswalkers/Proliferation', true, true, null),
   ('GWUB', 'Redless', null, null, false, false, null),
   ('RGWU', 'Meletis, Realm of Chaos', 'Kynaios and Tiro of Meletis', 'Chaos/Group Hug', true, false, null),

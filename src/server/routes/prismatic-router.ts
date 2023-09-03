@@ -24,3 +24,14 @@ prismaticRouter.get('/decks/:deckCount', (request, response) => {
       response.send({error: error.message});
     });
 });
+
+prismaticRouter.post('/tournaments', (request, response) => {
+  const { name, deckCount } = request.body;
+  prismaticService.createTournament(name, deckCount)
+    .then(() => {
+      response.send({success: true});
+    })
+    .catch((error: Error) => {
+      response.send({error: error.message});
+    });
+});

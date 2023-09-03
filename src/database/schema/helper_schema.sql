@@ -20,21 +20,21 @@ CREATE TABLE IF NOT EXISTS decks(
   feedback VARCHAR(1000),
   teammate_id INTEGER,
   tickets INTEGER DEFAULT 1,
-  points INTEGER,
-  tournaments INTEGER,
-  points_per_tournament DECIMAL,
+  points INTEGER DEFAULT 0,
+  tournaments INTEGER DEFAULT 0,
+  points_per_tournament DECIMAL DEFAULT 0,
   tickets_16 INTEGER DEFAULT 1,
-  points_16 INTEGER,
-  tournaments_16 INTEGER,
-  points_per_tournament_16 DECIMAL,
+  points_16 INTEGER DEFAULT 0,
+  tournaments_16 INTEGER DEFAULT 0,
+  points_per_tournament_16 DECIMAL DEFAULT 0,
   tickets_32 INTEGER DEFAULT 1,
-  points_32 INTEGER,
-  tournaments_32 INTEGER,
-  points_per_tournament_32 DECIMAL,
+  points_32 INTEGER DEFAULT 0,
+  tournaments_32 INTEGER DEFAULT 0,
+  points_per_tournament_32 DECIMAL DEFAULT 0,
   tickets_64 INTEGER DEFAULT 1,
-  points_64 INTEGER,
-  tournaments_64 INTEGER,
-  points_per_tournament_64 DECIMAL,
+  points_64 INTEGER DEFAULT 0,
+  tournaments_64 INTEGER DEFAULT 0,
+  points_per_tournament_64 DECIMAL DEFAULT 0,
   selected BOOLEAN,
   PRIMARY KEY(deck_id),
   FOREIGN KEY(teammate_id)
@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS decks(
 );
 
 CREATE TABLE IF NOT EXISTS tournaments(
-  tournament_id SERIAL PRIMARY KEY,
+  tournament_id SERIAL,
   name VARCHAR(255) NOT NULL,
   created_at TIMESTAMP NOT NULL DEFAULT NOW(),
   updated_at TIMESTAMP NOT NULL DEFAULT NOW(),
@@ -53,8 +53,10 @@ CREATE TABLE IF NOT EXISTS tournaments(
   format VARCHAR(255),
   elimination_type VARCHAR(255),
   start_time TIMESTAMP,
+  status VARCHAR(255) DEFAULT 'Playing',
   seeded BOOLEAN,
-  seed_order INTEGER[]
+  seed_order INTEGER[],
+  PRIMARY KEY(tournament_id)
 );
 
 /*
