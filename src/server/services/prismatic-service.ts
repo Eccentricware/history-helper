@@ -12,6 +12,8 @@ export class PrismaticService {
 
     let totalTickets = decksReady.reduce((acc: number, deck: any) => acc + deck.tickets, 0);
     const selectedDecks: any = [];
+    const pointGroups: Record<number, any> = {};
+    const pointGroupArray = [];
 
     while (selectedDecks.length < deckCount) {
       const winningTicket = Math.ceil(Math.random() * totalTickets);
@@ -26,6 +28,13 @@ export class PrismaticService {
       });
 
       selectedDecks.push(decksReady[winningIndex!]);
+      const deckPoints = decksReady[winningIndex!][`points_per_tournament_${deckCount}`];
+      if (pointGroups[deckPoints]) {
+        pointGroups[deckPoints].push(decksReady[winningIndex!]);
+      } else {
+        pointGroups[deckPoints] = [decksReady[winningIndex!]];
+        pointGroupArray.push(deckPoints);
+      }
       totalTickets -= decksReady[winningIndex!].tickets;
       decksReady.splice(winningIndex!, 1);
     }
