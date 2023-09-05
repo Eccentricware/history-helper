@@ -70,6 +70,7 @@ export class PrismaticService {
       selectedDecks.push(decksReady[winningIndex]);
       const deckPoints = decksReady[winningIndex][`points_per_tournament_${deckCount}`];
       const deckTournaments = decksReady[winningIndex][`tournaments_${deckCount}`];
+
       if (pointGroups[deckPoints]) {
         if (pointGroups[deckPoints][deckTournaments]) {
           pointGroups[deckPoints][deckTournaments].push(decksReady[winningIndex]);
@@ -85,5 +86,9 @@ export class PrismaticService {
     }
 
     return pointGroups;
+  }
+
+  async reportScores(tournamentId: number, scores: Record<number, number>) {
+
   }
 }
