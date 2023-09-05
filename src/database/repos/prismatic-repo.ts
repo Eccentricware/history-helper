@@ -2,6 +2,7 @@ import { IDatabase, IMain, ParameterizedQuery } from "pg-promise";
 import { getAllDecksQuery } from "../queries/get-all-decks-query";
 import { getConstructedDecksQuery } from "../queries/get-constructed-decks-query";
 import { createTournamentQuery } from "../queries/create-tournament-query";
+import { resetDeckTicketsQuery } from "../queries/reset-deck-tickets-querty";
 
 export class PrismaticRepository {
   constructor(private db: IDatabase<any>, private pgp: IMain) {}
@@ -23,5 +24,9 @@ export class PrismaticRepository {
     });
 
     await this.db.none(query);
+  }
+
+  async resetDeckTickets(deckIds: number[]): Promise<void> {
+    const query = this.db.query(resetDeckTicketsQuery);
   }
 }
