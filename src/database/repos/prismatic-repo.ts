@@ -2,7 +2,8 @@ import { IDatabase, IMain, ParameterizedQuery } from "pg-promise";
 import { getAllDecksQuery } from "../queries/get-all-decks-query";
 import { getConstructedDecksQuery } from "../queries/get-constructed-decks-query";
 import { createTournamentQuery } from "../queries/create-tournament-query";
-import { resetDeckTicketsQuery } from "../queries/reset-deck-tickets-querty";
+import { updateDeckTicketsQuery16 } from "../queries/update-deck-tickets-querty";
+import { reportScoreByIdQuery16, reportScoreByNameQuery16 } from "../queries/report-scores-queries";
 
 export class PrismaticRepository {
   constructor(private db: IDatabase<any>, private pgp: IMain) {}
@@ -26,7 +27,17 @@ export class PrismaticRepository {
     await this.db.none(query);
   }
 
-  async resetDeckTickets(deckIds: number[]): Promise<void> {
-    const query = this.db.query(resetDeckTicketsQuery);
+  async updateDeckTickets(): Promise<void> {
+    await this.db.query(updateDeckTicketsQuery16);
+  }
+
+
+  async reportScore16(deckIdentifier: string, score: number, useId: boolean): Promise<void> {
+    const query = new ParameterizedQuery({
+      text: useId ? reportScoreByIdQuery16 : reportScoreByNameQuery16,
+      values: [score, deckIdentifier]
+    });
+
+    await this.db.none(query);
   }
 }
