@@ -40,9 +40,9 @@ prismaticRouter.post('/tournaments', (request, response) => {
     });
 });
 
-prismaticRouter.post('/tournaments/report', (request, response) => {
-  const { tournamentId, scores } = request.body;
-  prismaticService.reportScores(tournamentId, scores)
+prismaticRouter.post('/scores/16', (request, response) => {
+  const { scores } = request.body;
+  prismaticService.reportScores16(scores)
     .then(() => {
       response.send({ success: true });
     })

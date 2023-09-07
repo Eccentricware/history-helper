@@ -68,18 +68,18 @@ export class PrismaticService {
       });
 
       selectedDecks.push(decksReady[winningIndex]);
-      const deckPoints = decksReady[winningIndex][`points_per_tournament_${deckCount}`];
+      const deckPointsPerTournament = Number(decksReady[winningIndex][`points_per_tournament_${deckCount}`]);
       const deckTournaments = decksReady[winningIndex][`tournaments_${deckCount}`];
 
-      if (pointGroups[deckPoints]) {
-        if (pointGroups[deckPoints][deckTournaments]) {
-          pointGroups[deckPoints][deckTournaments].push(decksReady[winningIndex]);
+      if (pointGroups[deckPointsPerTournament]) {
+        if (pointGroups[deckPointsPerTournament][deckTournaments]) {
+          pointGroups[deckPointsPerTournament][deckTournaments].push(decksReady[winningIndex]);
         } else {
-          pointGroups[deckPoints][deckTournaments] = [decksReady[winningIndex]];
+          pointGroups[deckPointsPerTournament][deckTournaments] = [decksReady[winningIndex]];
         }
       } else {
-        pointGroups[deckPoints] = {};
-        pointGroups[deckPoints][deckTournaments] = [decksReady[winningIndex]];
+        pointGroups[deckPointsPerTournament] = {};
+        pointGroups[deckPointsPerTournament][deckTournaments] = [decksReady[winningIndex]];
       }
       totalTickets -= decksReady[winningIndex].tickets;
       decksReady.splice(winningIndex, 1);
@@ -88,7 +88,16 @@ export class PrismaticService {
     return pointGroups;
   }
 
-  async reportScores(tournamentId: number, scores: Record<number, number>) {
+  async reportScores16(scores: Record<number | string, number>) {
+    const reportingPromises = []
+    for (let deck in scores) {
+      reportingPromises.push(db.pristmaticRepo.reportScore16(deck, scores[deck], Number(deck) > 0));
+    }
 
+    Promise.all(reportingPromises)
+      .then(() => {
+        db.pristmaticRepo.updateDeckTickets();
+      })
   }
+
 }
