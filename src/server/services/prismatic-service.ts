@@ -97,7 +97,8 @@ export class PrismaticService {
     Promise.all(reportingPromises)
       .then(() => {
         db.pristmaticRepo.updateDeckTickets();
-      })
+        db.pristmaticRepo.resolveTournaments();
+      });
   }
 
 }
