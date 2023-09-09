@@ -2,8 +2,8 @@ import { db } from "../../database/connections";
 import { genericlyRandomizeArray } from "../utils/randomizers";
 
 export class PrismaticService {
-  async getFullStandings(): Promise<any> {
-    const allDecks = await db.pristmaticRepo.getAllDecks();
+  async getStandings(league: number): Promise<any> {
+    const allDecks = await db.pristmaticRepo.getStandings(league);
 
     return allDecks;
   }

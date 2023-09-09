@@ -5,8 +5,10 @@ import { error } from "console";
 export const prismaticRouter = express.Router();
 const prismaticService = new PrismaticService();
 
-prismaticRouter.get('/decks', (request, response) => {
-  prismaticService.getFullStandings()
+prismaticRouter.get('/standings/:league', (request, response) => {
+  const league = Number(request.params.league);
+
+  prismaticService.getStandings(league)
     .then((deckResults: any) => {
       response.send({decks: deckResults });
     })

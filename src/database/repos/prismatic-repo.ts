@@ -1,5 +1,5 @@
 import { IDatabase, IMain, ParameterizedQuery } from "pg-promise";
-import { getAllDecksQuery } from "../queries/get-all-decks-query";
+import { getAllDecksQuery, getStandings16Query, getStandings64Query } from "../queries/get-all-decks-query";
 import { getConstructedDecksQuery } from "../queries/get-constructed-decks-query";
 import { createTournamentQuery } from "../queries/create-tournament-query";
 import { updateDeckTicketsQuery16 } from "../queries/update-deck-tickets-querty";
@@ -12,6 +12,14 @@ export class PrismaticRepository {
   async getAllDecks(): Promise<any> {
     const decks = this.db.many(getAllDecksQuery);
     return decks;
+  }
+
+  async getStandings(league: number): Promise<any> {
+    if (league === 16) {
+      return this.db.many(getStandings16Query);
+    } else {
+      return this.db.many(getStandings64Query);
+    }
   }
 
   async getContructedDecks(): Promise<any> {

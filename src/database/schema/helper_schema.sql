@@ -10,6 +10,8 @@ SET TIME ZONE 'utc';
 CREATE TABLE IF NOT EXISTS decks(
   deck_id SERIAL,
   color_id VARCHAR(5) NOT NULL,
+  color_id_number INTEGER,
+  color_sort_order INTEGER,
   deck_name VARCHAR(255),
   commander VARCHAR(255),
   partner VARCHAR(255),
