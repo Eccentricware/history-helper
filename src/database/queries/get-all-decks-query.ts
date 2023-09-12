@@ -17,6 +17,10 @@ export const getStandings16Query = `
   FROM decks
   ORDER BY constructed DESC,
     points_per_tournament_16 DESC,
+    CASE WHEN tournaments_16 = 0
+      THEN 0
+      ELSE 1
+    END DESC,
     tournaments_16,
     color_sort_order,
     color_id_number;
@@ -30,10 +34,7 @@ export const getStandings64Query = `
     points_64,
     tournaments_64
   FROM decks
-  ORDER BY constructed DESC,
-    points_per_tournament_64 DESC,
-    tournaments_64,
+  ORDER BY points_64,
     color_sort_order,
     color_id_number;
 `;
-
