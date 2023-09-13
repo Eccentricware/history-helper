@@ -5,6 +5,7 @@ import { createTournamentQuery } from "../queries/create-tournament-query";
 import { updateDeckTicketsQuery16 } from "../queries/update-deck-tickets-querty";
 import { reportScoreByIdQuery16, reportScoreByNameQuery16 } from "../queries/report-scores-queries";
 import { resolveTournamentsQuery } from "../queries/resolve-tournaments-query";
+import { setDecksSelectedQuery } from "../queries/set-decks-selected-query";
 
 export class PrismaticRepository {
   constructor(private db: IDatabase<any>, private pgp: IMain) {}
@@ -25,6 +26,15 @@ export class PrismaticRepository {
   async getContructedDecks(): Promise<any> {
     const decks = this.db.many(getConstructedDecksQuery);
     return decks;
+  }
+
+  async selectDecks(deckIds: number[]): Promise<void> {
+    const query = new ParameterizedQuery({
+      text: setDecksSelectedQuery,
+      values: deckIds
+    });
+
+    await this.db.none(query);
   }
 
   async createTournament(name: string, deckIds: number[]): Promise<void> {
