@@ -6,6 +6,8 @@ import { updateDeckTicketsQuery16 } from "../queries/update-deck-tickets-querty"
 import { reportScoreByIdQuery16, reportScoreByNameQuery16 } from "../queries/report-scores-queries";
 import { resolveTournamentsQuery } from "../queries/resolve-tournaments-query";
 import { setDecksSelectedQuery } from "../queries/set-decks-selected-query";
+import { query } from "express";
+import { DeckResult, Deck } from "../../models/deck-objects";
 
 export class PrismaticRepository {
   constructor(private db: IDatabase<any>, private pgp: IMain) {}
@@ -24,7 +26,21 @@ export class PrismaticRepository {
   }
 
   async getContructedDecks(): Promise<any> {
-    const decks = this.db.many(getConstructedDecksQuery);
+    const decksReturned: DeckResult[] = await this.db.many<DeckResult>(getConstructedDecksQuery);
+
+    const decks: Deck[] = decksReturned.map((deck: DeckResult) => {
+      return <Deck> {
+        deckId: deck.deck_id,
+        deckName: deck.deck_name,
+        colorId: deck.color_id,
+        commander: deck.commander,
+        pointsPerTournament16: Number(deck.points_per_tournament_16),
+        points16: deck.points_16,
+        tournaments16: deck.tournaments_16,
+        tickets16: deck.tickets_16
+      };
+    });
+
     return decks;
   }
 

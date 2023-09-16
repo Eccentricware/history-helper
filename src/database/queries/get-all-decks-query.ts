@@ -13,7 +13,8 @@ export const getStandings16Query = `
     commander,
     points_per_tournament_16,
     points_16,
-    tournaments_16
+    tournaments_16,
+    tickets_16
   FROM decks
   ORDER BY constructed DESC,
     points_per_tournament_16 DESC,
