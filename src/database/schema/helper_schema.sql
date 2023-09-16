@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS decks(
   tickets_16 INTEGER DEFAULT 1,
   points_16 INTEGER DEFAULT 0,
   tournaments_16 INTEGER DEFAULT 0,
-  points_per_tournament_16 DECIMAL DEFAULT 0,
+  points_per_tournament_16 NUMERIC(8, 3) DEFAULT 0,
   tickets_32 INTEGER DEFAULT 1,
   points_32 INTEGER DEFAULT 0,
   tournaments_32 INTEGER DEFAULT 0,

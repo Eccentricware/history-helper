@@ -10,7 +10,7 @@ export const updateDeckTicketsQuery16 = `
       ELSE tournaments_16
     END,
     points_per_tournament_16 = CASE
-      WHEN selected = true THEN points_16 / (tournaments_16 + 1)
+      WHEN selected = true THEN CAST(points_16 as NUMERIC) / (tournaments_16 + 1)
       ELSE points_per_tournament_16
     END,
     selected = false;
