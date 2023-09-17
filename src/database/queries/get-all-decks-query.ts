@@ -22,7 +22,7 @@ export const getStandings16Query = `
       THEN 0
       ELSE 1
     END DESC,
-    tournaments_16,
+    --tournaments_16,
     color_sort_order,
     color_id_number;
 `;
