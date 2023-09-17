@@ -22,35 +22,17 @@ export class PrismaticService {
   async getDecksForTournament(deckCount: number): Promise<any> {
     const decksReady = await db.pristmaticRepo.getContructedDecks();
 
-    const deckGroups: Record<number, Record<number, any>> = this.randomizeSelectedDecks(decksReady, deckCount);
+    const deckGroups: Record<number, any[]> = this.randomizeSelectedDecks(decksReady, deckCount);
 
     const orderedDecks: any[] = [];
-    let newCombers = [];
 
     const pointGroups = Object.keys(deckGroups).map((val: string) => Number(val));
     pointGroups.sort(this.compareNumbers);
 
-    for (let pointIndex = pointGroups.length - 1; pointIndex >= 0; pointIndex--) {
-      const points = pointGroups[pointIndex];
-      const tourneyCountGroups = Object.keys(deckGroups[points]).map((val: string) => Number(val));
-      tourneyCountGroups.sort(this.compareNumbers);
-
-      for (let countIndex = 0; countIndex < tourneyCountGroups.length; countIndex++) {
-        const tournamentCount = tourneyCountGroups[countIndex];
-
-        const randomizedDecks = genericlyRandomizeArray(deckGroups[points][tournamentCount]);
-
-        if (points === 0 && tournamentCount === 0) {
-          newCombers = randomizedDecks;
-        } else {
-          orderedDecks.push(...randomizedDecks);
-        }
-      }
-    }
-
-    if (newCombers.length > 0) {
-      orderedDecks.push(...newCombers);
-    }
+    pointGroups.forEach((point: number) => {
+      const deckGroup: any[] = deckGroups[point];
+      orderedDecks.unshift(...deckGroup);
+    });
 
     const idArray = orderedDecks.map((deck: any) => deck.deckId);
 
@@ -76,19 +58,24 @@ export class PrismaticService {
       });
 
       const winningDeck = decksReady[winningIndex];
+
       selectedDecks.push(winningDeck);
       const deckPointsPerTournament = Number(winningDeck.pointsPerTournament16);
       const deckTournaments = winningDeck[`tournaments${deckCount}`];
 
-      if (pointGroups[deckPointsPerTournament]) {
-        if (pointGroups[deckPointsPerTournament][deckTournaments]) {
-          pointGroups[deckPointsPerTournament][deckTournaments].push(winningDeck);
+      if (deckTournaments > 0) {
+        if (pointGroups[deckPointsPerTournament]) {
+          pointGroups[deckPointsPerTournament].push(winningDeck);
         } else {
-          pointGroups[deckPointsPerTournament][deckTournaments] = [winningDeck];
+          pointGroups[deckPointsPerTournament] = [winningDeck];
         }
+
       } else {
-        pointGroups[deckPointsPerTournament] = {};
-        pointGroups[deckPointsPerTournament][deckTournaments] = [winningDeck];
+        if (pointGroups[-1]) {
+          pointGroups[-1].push(winningDeck);
+        } else {
+          pointGroups[-1] = [winningDeck];
+        }
       }
 
       totalTickets -= winningDeck.tickets16;
