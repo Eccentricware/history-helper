@@ -8,6 +8,7 @@ import { resolveTournamentsQuery } from "../queries/resolve-tournaments-query";
 import { setDecksSelectedQuery } from "../queries/set-decks-selected-query";
 import { query } from "express";
 import { DeckResult, Deck } from "../../models/deck-objects";
+import { getCurrentlySelectedQuery } from "../queries/get-currently-selected-query";
 
 export class PrismaticRepository {
   constructor(private db: IDatabase<any>, private pgp: IMain) {}
@@ -77,5 +78,24 @@ export class PrismaticRepository {
 
   async resolveTournaments(): Promise<void> {
     await this.db.query(resolveTournamentsQuery);
+  }
+
+  async getSelectedDecks(): Promise<any> {
+    const decksReturned: DeckResult[] = await this.db.many<DeckResult>(getCurrentlySelectedQuery);
+
+    const decks: Deck[] = decksReturned.map((deck: DeckResult) => {
+      return <Deck> {
+        deckId: deck.deck_id,
+        deckName: deck.deck_name,
+        colorId: deck.color_id,
+        commander: deck.commander,
+        pointsPerTournament16: Number(deck.points_per_tournament_16),
+        points16: deck.points_16,
+        tournaments16: deck.tournaments_16,
+        tickets16: deck.tickets_16
+      };
+    });
+
+    return decks;
   }
 }
