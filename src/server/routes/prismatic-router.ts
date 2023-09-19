@@ -55,3 +55,16 @@ prismaticRouter.post('/scores/16', (request, response) => {
       });
     })
 });
+
+prismaticRouter.get('/selected-decks', (request, response) => {
+  prismaticService.getSelectedDecks()
+    .then((decks: any) => {
+      response.send({ decks });
+    })
+    .catch((error: Error) => {
+      response.send({
+        success: false,
+        error: `Get currently selected error: ${error.message}`
+      });
+    });
+});

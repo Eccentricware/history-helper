@@ -98,4 +98,8 @@ export class PrismaticService {
       });
   }
 
+  async getSelectedDecks(): Promise<any> {
+    const selectedDecks = await db.pristmaticRepo.getSelectedDecks();
+    return selectedDecks;
+  }
 }
