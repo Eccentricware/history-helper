@@ -61,39 +61,15 @@ CREATE TABLE IF NOT EXISTS tournaments(
   PRIMARY KEY(tournament_id)
 );
 
-/*
-CREATE TABLE IF NOT EXISTS matches(
-  match_id SERial PRIMARY KEY,
-  tournament_id INTEGER REFERENCES tournaments(tournament_id),
-  created_at TIMESTAMP NOT NULL DEFAULT NOW(),
-  updated_at TIMESTAMP NOT NULL DEFAULT NOW(),
-  round INTEGER,
-  match_number INTEGER
-)
-
-CREATE TABLE IF NOT EXISTS participants(
-  participant_id SERIAL PRIMARY KEY,
-  tournament_id INTEGER REFERENCES tournaments(tournament_id),
+CREATE TABLE IF NOT EXISTS fighters(
+  fighter_id SERIAL,
   name VARCHAR(255) NOT NULL,
-  created_at TIMESTAMP NOT NULL DEFAULT NOW(),
-  updated_at TIMESTAMP NOT NULL DEFAULT NOW()
+  key VARCHAR(255) NOT NULL,
+  favor INTEGER DEFAULT 0,
+  tickets INTEGER DEFAULT 0,
+  champion_rating INTEGER DEFAULT 1,
+  default_img INTEGER,
+  clone_partner VARCHAR(255),
+  selected BOOLEAN DEFAULT false,
+  smash_id VARCHAR(4)
 );
-
-CREATE TABLE IF NOT EXISTS participants_in_tournaments(
-  pit_id SERIAL PRIMARY KEY,
-  participant_id INTEGER REFERENCES participants(participant_id),
-  tournament_id INTEGER REFERENCES tournaments(tournament_id)
-);
-
-CREATE TABLE IF NOT EXISTS participants_in_matches(
-  pim_id SERIAL PRIMARY KEY,
-  participant_id INTEGER REFERENCES participants(participant_id),
-  match_id INTEGER REFERENCES matches(match_id),
-  score INTEGER,
-  rank INTEGER,
-  winner BOOLEAN,
-  pros VARCHAR(1000),
-  cons VARCHAR(1000),
-  mvp VARCHAR(255)
-);
-*/
