@@ -1,7 +1,7 @@
 import pgPromise, { IDatabase, IInitOptions, IMain } from "pg-promise";
 import { envCredentials } from "../secrets/dbCredentials";
 import { PrismaticRepository } from "./repos/prismatic-repo";
-import { UltimateRepository } from "./repos/ssbu-repo";
+import { UltimateRepository } from "./repos/ultimate-repo";
 
 interface IExtensions {
   pristmaticRepo: PrismaticRepository;
