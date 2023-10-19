@@ -67,9 +67,15 @@ CREATE TABLE IF NOT EXISTS fighters(
   key VARCHAR(255) NOT NULL,
   favor INTEGER DEFAULT 0,
   tickets INTEGER DEFAULT 0,
+  tickets_ss3 INTEGER DEFAULT 0,
+  tickets_ss5 INTEGER DEFAULT 0,
   champion_rating INTEGER DEFAULT 1,
+  champion_rating_ss3 INTEGER DEFAULT 1,
+  champion_rating_ss5 INTEGER DEFAULT 1,
   default_img INTEGER,
-  clone_partner VARCHAR(255),
   selected BOOLEAN DEFAULT false,
+  selected_ss3 BOOLEAN DEFAULT false,
+  selected_ss5 BOOLEAN DEFAULT false,
+  clone_id INTEGER,
   smash_id VARCHAR(4)
 );
