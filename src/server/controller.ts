@@ -3,6 +3,7 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import * as dotenv from 'dotenv';
 import { prismaticRouter } from './routes/prismatic-router';
+import { ultimateRouter } from './routes/ultimate-router';
 
 dotenv.config();
 
@@ -13,6 +14,7 @@ helpingServer.use(cors());
 helpingServer.use(bodyParser.json({ limit: '5mb' }));
 
 helpingServer.use('/prismatic', prismaticRouter);
+helpingServer.use('/ultimate', ultimateRouter);
 
 helpingServer.get('/check-status', (request, response) => {
   response.send({
