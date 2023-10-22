@@ -6,7 +6,6 @@ import { updateDeckTicketsQuery16 } from "../queries/update-deck-tickets-querty"
 import { reportScoreByIdQuery16, reportScoreByNameQuery16 } from "../queries/report-scores-queries";
 import { resolveTournamentsQuery } from "../queries/resolve-tournaments-query";
 import { setDecksSelectedQuery } from "../queries/set-decks-selected-query";
-import { query } from "express";
 import { DeckResult, Deck } from "../../models/deck-objects";
 import { getCurrentlySelectedQuery } from "../queries/get-currently-selected-query";
 

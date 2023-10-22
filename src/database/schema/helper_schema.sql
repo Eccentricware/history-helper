@@ -61,21 +61,34 @@ CREATE TABLE IF NOT EXISTS tournaments(
   PRIMARY KEY(tournament_id)
 );
 
-CREATE TABLE IF NOT EXISTS fighters(
+CREATE TABLE IF NOT EXISTS fighters (
   fighter_id SERIAL,
   name VARCHAR(255) NOT NULL,
   key VARCHAR(255) NOT NULL,
-  favor INTEGER DEFAULT 0,
-  tickets INTEGER DEFAULT 0,
-  tickets_ss3 INTEGER DEFAULT 0,
-  tickets_ss5 INTEGER DEFAULT 0,
-  champion_rating INTEGER DEFAULT 1,
-  champion_rating_ss3 INTEGER DEFAULT 1,
-  champion_rating_ss5 INTEGER DEFAULT 1,
-  default_img INTEGER,
-  selected BOOLEAN DEFAULT false,
-  selected_ss3 BOOLEAN DEFAULT false,
-  selected_ss5 BOOLEAN DEFAULT false,
   clone_id INTEGER,
-  smash_id VARCHAR(4)
+  smash_id VARCHAR(4),
+  default_img INTEGER,
+  PRIMARY KEY(fighter_id)
+);
+
+CREATE TABLE IF NOT EXISTS smash_players (
+  player_id SERIAL,
+  name VARCHAR(25),
+  username VARCHAR(10),
+  PRIMARY KEY(player_id)
+);
+
+CREATE TABLE IF NOT EXISTS fighter_details (
+  fighter_detail_id SERIAL,
+  fighter_id INTEGER NOT NULL,
+  player_id INTEGER NOT NULL,
+  pool_size INTEGER NOT NULL,
+  favor INTEGER DEFAULT 1,
+  tickets INTEGER DEFAULT 1,
+  selected BOOLEAN,
+  PRIMARY KEY(fighter_detail_id),
+  FOREIGN KEY(fighter_id)
+    REFERENCES fighters(fighter_id),
+  FOREIGN KEY(player_id)
+    REFERENCES smash_players(player_id)
 );
