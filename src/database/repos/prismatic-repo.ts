@@ -1,13 +1,13 @@
 import { IDatabase, IMain, ParameterizedQuery } from "pg-promise";
-import { getAllDecksQuery, getStandings16Query, getStandings64Query } from "../queries/get-all-decks-query";
-import { getConstructedDecksQuery } from "../queries/get-constructed-decks-query";
-import { createTournamentQuery } from "../queries/create-tournament-query";
-import { updateDeckTicketsQuery16 } from "../queries/update-deck-tickets-querty";
-import { reportScoreByIdQuery16, reportScoreByNameQuery16 } from "../queries/report-scores-queries";
-import { resolveTournamentsQuery } from "../queries/resolve-tournaments-query";
-import { setDecksSelectedQuery } from "../queries/set-decks-selected-query";
+import { getAllDecksQuery, getStandings16Query, getStandings64Query } from "../queries/prismatic/get-all-decks-query";
+import { getConstructedDecksQuery } from "../queries/prismatic/get-constructed-decks-query";
+import { createTournamentQuery } from "../queries/prismatic/create-tournament-query";
+import { updateDeckTicketsQuery16 } from "../queries/prismatic/update-deck-tickets-querty";
+import { reportScoreByIdQuery16, reportScoreByNameQuery16 } from "../queries/prismatic/report-scores-queries";
+import { resolveTournamentsQuery } from "../queries/prismatic/resolve-tournaments-query";
+import { setDecksSelectedQuery } from "../queries/prismatic/set-decks-selected-query";
 import { DeckResult, Deck } from "../../models/deck-objects";
-import { getCurrentlySelectedQuery } from "../queries/get-currently-selected-query";
+import { getCurrentlySelectedQuery } from "../queries/prismatic/get-currently-selected-query";
 
 export class PrismaticRepository {
   constructor(private db: IDatabase<any>, private pgp: IMain) {}

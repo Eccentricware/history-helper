@@ -5,9 +5,9 @@ export const ultimateRouter = express.Router();
 const ultimateService = new UltimateService();
 
 ultimateRouter.post('/select-fighters', (request, response) => {
-  const fighterCount = request.body.fighterCount;
+  const { playerId, poolSize } = request.body;
 
-  ultimateService.selectFighters(fighterCount)
+  ultimateService.selectFighters(playerId, poolSize)
     .then((response: any) => {
       response.send({ success: true});
     })

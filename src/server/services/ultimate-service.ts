@@ -1,14 +1,14 @@
 import { db } from "../../database/connections";
 
 export class UltimateService {
-  async selectFighters(fighterCount: number): Promise<any> {
-    const fighters = await db.ultimateRepo.getFighters(fighterCount);
+  async selectFighters(playerId: number, poolSize: number): Promise<any> {
+    const fighters = await db.ultimateRepo.getFighters(playerId, poolSize);
 
     const selectedFighters: any[] = [];
 
     let totalTickets = fighters.reduce((acc: number, fighter: any) => acc + fighter.tickets, 0);
 
-    while (selectedFighters.length < fighterCount) {
+    while (selectedFighters.length < poolSize) {
       const winningTicket = Math.ceil(Math.random() * totalTickets);
 
       let ticketsChecked = 0;
@@ -29,11 +29,12 @@ export class UltimateService {
       fighters.splice(winningIndex, 1);
     }
 
-    this.saveSelectedFighters(selectedFighters);
+    this.saveSelectedFighters(playerId, selectedFighters);
   }
 
-  saveSelectedFighters(fighters: any[]): Promise<any> {
-    const fighterIds = fighters.map((fighter: any) => fighter.fighter_id);
-    return db.ultimateRepo.saveSelectedFighters(fighterIds, fighters.length);
+  saveSelectedFighters(playerId: number, selectedFighters: any[]): Promise<any> {
+    const fighterIds = selectedFighters.map((fighter: any) => fighter.fighter_id);
+
+    return db.ultimateRepo.saveSelectedFighters(playerId, fighterIds);
   }
 }
