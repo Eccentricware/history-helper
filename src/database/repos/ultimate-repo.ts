@@ -1,9 +1,13 @@
 import { IDatabase, IMain, ParameterizedQuery } from "pg-promise";
-import { getFightersQuery } from "../queries/ultimate/get-fighters-query";
+import { getFightersQuery, getRosterQuery } from "../queries/ultimate/get-fighters-queries";
 import { saveSelectedFightersQuery } from "../queries/ultimate/save-selected-fighters-queries";
 
 export class UltimateRepository {
   constructor(private db: IDatabase<any>, private pgp: IMain) {}
+
+  async getRoster(): Promise<any> {
+    return await this.db.many(getRosterQuery);
+  }
 
   async getFighters(playerId: number, poolSize: number): Promise<any> {
     const getFightersPQ = new ParameterizedQuery({

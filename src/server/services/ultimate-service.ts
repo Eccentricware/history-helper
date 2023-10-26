@@ -1,6 +1,12 @@
 import { db } from "../../database/connections";
 
 export class UltimateService {
+  async getRoster(): Promise<any> {
+    const roster = await db.ultimateRepo.getRoster();
+
+    return roster;
+  }
+  
   async selectFighters(playerId: number, poolSize: number): Promise<any> {
     const fighters = await db.ultimateRepo.getFighters(playerId, poolSize);
 
@@ -26,7 +32,7 @@ export class UltimateService {
 
       selectedFighters.push(winningFighter);
       totalTickets -= winningFighter.tickets;
-      fighters.splice(winningIndex, 1);
+      fighters.splice(winningIndex, 1); 
     }
 
     this.saveSelectedFighters(playerId, selectedFighters);
