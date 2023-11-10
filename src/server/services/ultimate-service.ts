@@ -6,6 +6,10 @@ export class UltimateService {
 
     return roster;
   }
+
+  async fetchFighterFavor(playerId: number): Promise<any> {
+    return await db.ultimateRepo.getFighterFavor(playerId);
+  }
   
   async selectFighters(playerId: number, poolSize: number): Promise<any> {
     const fighters = await db.ultimateRepo.getFighters(playerId, poolSize);
