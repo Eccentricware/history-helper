@@ -11,8 +11,20 @@ ultimateRouter.get('/get-roster', (request, response) => {
     })
     .catch((error: Error) => {
       response.send({ error: `Error getting roster: ${error.message}`});
+    });
+});
+
+ultimateRouter.get('/get-favor/:playerId', (request, response) => {
+  const playerId = Number(request.params.playerId);
+
+  ultimateService.fetchFighterFavor(playerId)
+    .then((roster: any) => {
+      response.send({ roster: roster });
     })
-};
+    .catch((error: Error) => {
+      response.send({ error: `Error getting roster: ${error.message}`});
+    });
+});
 
 ultimateRouter.post('/select-fighters', (request, response) => {
   const { playerId, poolSize } = request.body;
@@ -23,5 +35,5 @@ ultimateRouter.post('/select-fighters', (request, response) => {
     })
     .catch((error: Error) => {
       response.send({ success: false, error: `Error selecting fighters: ${error.message}`});
-    })
+    });
 });
