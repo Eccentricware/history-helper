@@ -18,11 +18,25 @@ export class PrismaticRepository {
   }
 
   async getStandings(league: number): Promise<any> {
+    let standings = [];
     if (league === 16) {
-      return this.db.many(getStandings16Query);
+      standings = await this.db.many(getStandings16Query);
     } else {
-      return this.db.many(getStandings64Query);
+      standings = await this.db.many(getStandings64Query);
     }
+
+    return standings.map((deck: DeckResult) => {
+      return <Deck> {
+        deckId: deck.deck_id,
+        deckName: deck.deck_name,
+        colorId: deck.color_id,
+        commander: deck.commander,
+        pointsPerTournament16: Number(deck.points_per_tournament_16),
+        points16: deck.points_16,
+        tournaments16: deck.tournaments_16,
+        tickets16: deck.tickets_16
+      };
+    });
   }
 
   async getContructedDecks(): Promise<any> {
